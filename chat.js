@@ -1,3 +1,4 @@
+// === DOM Elements ===
 const chatWidget = document.getElementById('chat-widget');
 const chatLauncher = document.getElementById('chat-launcher');
 const closeChatBtn = document.getElementById('close-chat');
@@ -9,9 +10,19 @@ const chatIframeContainer = document.getElementById('chat-iframe-container');
 const chatIframe = document.getElementById('chat-iframe');
 
 const CHAT_AGENT_URL = 'https://tawk.to/chat/6872fa1c7f202b19181e9c17/1j00i206i';
-const GEMINI_API_KEY = 'AIzaSyBoKSRmvIK878YI56TFdDJJrQo3NtuGVcc'; // Replace this with your actual Gemini API Key
+const AI21_API_KEY = '06ab84aa-a88e-4a8d-99c2-d4e6bfd8ca4d';
+
 let awaitingAgentConfirmation = false;
 
+// Predefined simple responses for buttons
+const brain = {
+  "i have a question": "Sure! What would you like to ask?",
+  "help with login": "🔐 Login Help\n▶ Forgot your password? Click 'Forgot Password' and check your spam folder.\n▶ Account locked? Wait 10–15 minutes and try again.",
+  "file issue": "📁 File Help\n▶ File not showing? Refresh the page.\n▶ Deleted something? Click the trash icon next to the file.",
+  "talk to an agent": "⚠️ Before we connect you, please make sure your email is correct in the ticket form. You will get a reply by email.\n\nType 'yes' to continue or 'no' to go back."
+};
+
+// === Event Listeners ===
 chatLauncher.addEventListener('click', () => {
   chatWidget.style.display = chatWidget.style.display === 'flex' ? 'none' : 'flex';
   chatWidget.style.flexDirection = 'column';
@@ -23,6 +34,9 @@ closeChatBtn.addEventListener('click', () => {
   resetChat();
 });
 
+chatInput.addEventListener('keypress', handleKey);
+
+// === Reset Chat State ===
 function resetChat() {
   chatResponse.innerText = "💡 I'm ready to assist you!";
   chatContent.style.display = 'block';
@@ -34,12 +48,57 @@ function resetChat() {
   chatWidget.style.height = window.innerWidth <= 480 ? '100vh' : 'auto';
 }
 
+// === Ask AI21 Labs API ===
+async function askAI21(promptText) {
+  const url = 'https://api.ai21.com/studio/v1/j2-jumbo/complete';
+
+  const body = {
+    prompt: promptText,
+    maxTokens: 150,
+    temperature: 0.7,
+    topP: 1,
+    stopSequences: ["\n"],
+    countPenalties: {
+      scale: 0.5,
+      applyToNumbers: false,
+      applyToPunctuations: false,
+      applyToStopwords: false,
+      applyToWhitespaces: false,
+      applyToEmojis: false
+    }
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${AI21_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+
+    const data = await response.json();
+
+    if (data?.completions?.[0]?.data?.text) {
+      return data.completions[0].data.text.trim();
+    } else if (data.error) {
+      return `❌ AI21 Error: ${data.error.message}`;
+    } else {
+      return "⚠️ Unexpected response from AI21.";
+    }
+  } catch (error) {
+    console.error("AI21 Fetch Error:", error);
+    return "❌ Network error. Please try again.";
+  }
+}
+
+// === Ask AI (main handler) ===
 function askAI(input) {
   const key = input.toLowerCase().trim();
 
   if (key === "talk to an agent") {
-    chatResponse.innerText =
-      "⚠️ Before we connect you, please make sure your email is correct in the ticket form. You will get a reply by email.\n\nType 'yes' to continue or 'no' to go back.";
+    chatResponse.innerText = brain["talk to an agent"];
     awaitingAgentConfirmation = true;
     chatContent.style.display = 'none';
     chatInputArea.style.display = 'block';
@@ -48,41 +107,22 @@ function askAI(input) {
     return;
   }
 
+  // Show "thinking" text while waiting for API
   chatResponse.innerText = "✍️ Thinking...";
   chatContent.style.display = 'none';
   chatInputArea.style.display = 'block';
   chatInput.placeholder = "Type your question...";
   chatInput.focus();
 
-  fetchGeminiResponse(input).then((response) => {
+  askAI21(input).then((response) => {
     typeResponse(response);
   }).catch((err) => {
     chatResponse.innerText = "❌ Something went wrong. Please try again.";
-    console.error("Gemini error:", err);
+    console.error("AI21 Error:", err);
   });
 }
 
-async function fetchGeminiResponse(promptText) {
-  const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
-
-  const requestBody = {
-    contents: [
-      {
-        parts: [{ text: promptText }]
-      }
-    ]
-  };
-
-  const response = await fetch(apiUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(requestBody)
-  });
-
-  const data = await response.json();
-  return data?.candidates?.[0]?.content?.parts?.[0]?.text || "🤖 I couldn't generate a reply.";
-}
-
+// === Typing Animation ===
 function typeResponse(text) {
   chatResponse.innerText = '';
   let i = 0;
@@ -93,6 +133,7 @@ function typeResponse(text) {
   }, 20);
 }
 
+// === Handle Enter Key ===
 function handleKey(e) {
   if (e.key === 'Enter') {
     const userInput = chatInput.value.trim();
@@ -102,7 +143,7 @@ function handleKey(e) {
       if (userInput.toLowerCase() === 'yes') {
         openAgentChat();
       } else {
-        chatResponse.innerText = "Okay! Let us know if you need anything else.";
+        chatResponse.innerText = "👍 Okay! Let us know if you need anything else.";
         chatInputArea.style.display = 'none';
         chatContent.style.display = 'block';
         awaitingAgentConfirmation = false;
@@ -116,6 +157,7 @@ function handleKey(e) {
   }
 }
 
+// === Open Live Agent Chat ===
 function openAgentChat() {
   chatContent.style.display = 'none';
   chatInputArea.style.display = 'none';
