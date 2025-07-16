@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chrohail AI Assistant</title>
+  <link rel="stylesheet" href="chat.css" />
+</head>
+<body>
+
+<!-- Chat Launcher -->
+<button id="chat-launcher" aria-label="Open Chat Assistant">
+  💬 We're here to help!
+</button>
+
+<!-- Chat Widget -->
+<div id="chat-widget" role="dialog" aria-label="Chrohail Chat" style="display: none;">
+  <div id="chat-header">
+    🤖 Chrohail Assistant
+    <span id="close-chat" role="button" style="cursor: pointer;">×</span>
+  </div>
+
+  <div id="chat-content">
+    <button class="chat-btn" onclick="askAI('i have a question')">I have a question</button>
+    <button class="chat-btn" onclick="askAI('help with login')">Help with login/signup</button>
+    <button class="chat-btn" onclick="askAI('file issue')">File help</button>
+    <button class="chat-btn" onclick="askAI('talk to an agent')">Talk to an agent</button>
+  </div>
+
+  <div id="chat-response">💡 I'm ready to assist you!</div>
+
+  <div id="chat-input-area" style="display: none;">
+    <input
+      type="text"
+      id="chat-input"
+      placeholder="Type your message..."
+      autocomplete="off"
+    />
+  </div>
+
+  <div id="chat-iframe-container" style="display: none;">
+    <iframe
+      id="chat-iframe"
+      title="Live Agent Chat"
+      src=""
+      allow="microphone; autoplay"
+      sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+    ></iframe>
+  </div>
+
+  <div id="chat-footer">© 2025 Chrohail AI Assistant. All rights reserved.</div>
+</div>
+
+<script src="chat.js"></script>
+</body>
+</html>
