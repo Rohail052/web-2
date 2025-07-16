@@ -1,0 +1,464 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0f0f0f;
+  color: #fff;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+a {
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+/* Background Animation */
+.bg-animation {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #1ed76022 0%, transparent 70%), #0f0f0f;
+  background-size: 300% 300%;
+  animation: bgmove 12s infinite ease-in-out;
+  z-index: -1;
+}
+
+@keyframes bgmove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+nav a {
+  color: #fff;
+  margin-left: 1rem;
+  font-weight: 500;
+  position: relative;
+}
+
+nav a:hover {
+  color: #1ed760;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: #1ed760;
+  bottom: -5px;
+  left: 0;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+nav a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.login-btn {
+  border: 1px solid #1ed760;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.login-btn:hover {
+  background: #1ed760;
+  color: #000;
+}
+
+/* Menu Toggle */
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: white;
+}
+
+/* Hero Section */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-shadow: 0 0 20px rgba(30, 231, 96, 0.5);
+}
+
+.hero p {
+  font-size: 1.4rem;
+  color: #ccc;
+}
+
+.btn {
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.6rem;
+  background: #1ed760;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #00b859;
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(30, 231, 96, 0.5);
+}
+
+/* Intro Section */
+.intro {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #121212;
+  border-top: 2px solid #1ed760;
+}
+
+.intro-card {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #1a1a1a;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(30, 231, 96, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.intro-card:hover {
+  transform: scale(1.02);
+}
+
+.intro h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #1ed760;
+}
+
+.intro p {
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem;
+  background: #1e1e1e;
+  margin-top: 2rem;
+}
+
+footer a {
+  color: #1ed760;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #fff;
+}
+
+.social-icons {
+  margin-top: 1rem;
+}
+
+.social-icons a {
+  margin: 0 10px;
+  font-size: 1.5rem;
+  color: #1ed760;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #fff;
+  transform: scale(1.2);
+}
+
+/* AOS Animations */
+[data-aos] {
+  opacity: 0;
+  transition-property: opacity, transform;
+}
+
+[data-aos].aos-animate {
+  opacity: 1;
+}
+
+/* Mobile Nav */
+@media (max-width: 768px) {
+  nav {
+    display: none;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.95);
+    position: absolute;
+    right: 0;
+    top: 70px;
+    width: 200px;
+    padding: 1rem;
+    border-left: 2px solid #1ed760;
+  }
+
+  nav a {
+    margin: 1rem 0;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  nav.show {
+    display: flex;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+  }
+}
+
+
+/* Background Layer */
+body::before {
+  content: '';
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(115deg, #0f2027, #203a43, #2c5364);
+  background-size: 200% 200%;
+  animation: gradientBG 15s ease infinite;
+  z-index: -2;
+  top: 0;
+  left: 0;
+}
+
+/* Optional Floating Particles Effect */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: radial-gradient(#1ed76022 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.05;
+  z-index: -1;
+  animation: moveParticles 30s linear infinite;
+}
+
+/* Background Gradient Animation */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Subtle Particle Movement */
+@keyframes moveParticles {
+  from { background-position: 0 0; }
+  to { background-position: 100% 100%; }
+}
+
+
+
+/* Tagline Styling */
+.tagline {
+  font-size: 1.4rem;
+  font-weight: 500;
+  background: linear-gradient(90deg, #1ed760, #00ffcc, #1ed760);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: shine 6s ease-in-out infinite;
+  text-shadow: 0 0 10px rgba(30, 215, 96, 0.2);
+  letter-spacing: 1px;
+  margin-top: 1rem;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+
+#testimonials {
+  padding: 4rem 2rem;
+}
+
+#testimonials h2 {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: #4a4a4a;
+  font-size: 2.5rem;
+  font-weight: 700;
+  position: relative;
+}
+
+#testimonials h2::after {
+  content: '';
+  width: 100px;
+  height: 5px;
+  background: #ff9f1c;
+  border-radius: 2px;
+  display: block;
+  margin: 1rem auto 0;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+  gap: 2rem;
+}
+
+.testimonial-item {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 6px 12px #0002;
+  text-align: center;
+  transition: all 0.3s ease;
+  transform: translateY(40px);
+ .opacity: 0;
+  will-change: transform, box-shadow, background, scale;
+}
+
+.testimonial-item.active {
+  transform: translateY(0);
+  .opacity: 1;
+  box-shadow: 0 10px 20px #0003;
+}
+
+.testimonial-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px #0004;
+  background: #fffaef;
+}
+
+.testimonial-item img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 1.5rem;
+  object-fit: cover;
+  border: 4px solid #ff9f1c;
+  transition: transform 0.3s ease;
+}
+
+.testimonial-item:hover img {
+  transform: scale(1.1);
+}
+
+.testimonial-item p {
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  color: #555;
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+.testimonial-item:hover p {
+  color: #ff9f1c;
+}
+
+.testimonial-item h4 {
+  margin-bottom: 0;
+  color: #ff9f1c;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+     /* Modal Popup Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-content {
+      position: relative;
+      background-color: #fff;
+      margin: 5% auto;
+      padding: 1.5rem;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      color: #ff0000;
+    }
+

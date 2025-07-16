@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chaudhry | Portfolio</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="icon-192.png" type="image/png">
+
+  <!-- Fonts & Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
+
+  <!-- PWA Manifest & Theme -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#25D366">
+
+  <!-- Font Awesome for social icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* Special Offer Section Styling */
+    .offer-section {
+      background: linear-gradient(135deg, #1ed760, #128c4a);
+      color: white;
+      padding: 3rem 1.5rem;
+      border-radius: 12px;
+      max-width: 700px;
+      margin: 3rem auto;
+      text-align: center;
+      box-shadow: 0 8px 30px rgba(18,140,74,0.6);
+    }
+    .offer-section h2 {
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    .offer-section .discount {
+      font-size: 4rem;
+      font-weight: 900;
+      margin: 1rem 0;
+      text-shadow: 0 0 15px #1ed760;
+    }
+    .offer-section .dates {
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .offer-section p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 2rem auto;
+      line-height: 1.5;
+      text-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+    .offer-section a.btn-contact {
+      background-color: #fff;
+      color: #1ed760;
+      font-weight: 700;
+      padding: 0.75rem 2.5rem;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      text-decoration: none;
+      box-shadow: 0 6px 15px rgba(30,215,96,0.6);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: inline-block;
+    }
+    .offer-section a.btn-contact:hover {
+      background-color: #1ed760;
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(30,215,96,0.8);
+    }
+
+    @media (max-width: 480px) {
+      .offer-section h2 {
+        font-size: 2rem;
+      }
+      .offer-section .discount {
+        font-size: 3rem;
+      }
+      .offer-section p {
+        font-size: 1rem;
+      }
+    }
+
+        /* Modal overlay */
+  #offerModal {
+    display: none; /* hidden by default */
+    position: fixed;
+    z-index: 10000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  /* Modal content box */
+  #offerModal .modal-content {
+    background: linear-gradient(135deg, #1ed760, #128c4a);
+    color: white;
+    border-radius: 12px;
+    max-width: 480px;
+    margin: 8% auto;
+    padding: 2.5rem 2rem;
+    position: relative;
+    box-shadow: 0 8px 30px rgba(18,140,74,0.7);
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+  }
+
+  /* Close button */
+  #offerModal .close-btn {
+    position: absolute;
+    top: 12px; right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    user-select: none;
+    transition: color 0.3s ease;
+  }
+  #offerModal .close-btn:hover {
+    color: #ff4c4c;
+  }
+
+  /* Offer text */
+  #offerModal h2 {
+    font-size: 2.8rem;
+    margin-bottom: 0.3rem;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(0,0,0,0.3);
+  }
+
+  #offerModal .discount {
+    font-size: 4rem;
+    font-weight: 900;
+    margin: 1rem 0;
+    text-shadow: 0 0 15px #1ed760;
+  }
+
+  #offerModal .dates {
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  #offerModal p {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    margin-bottom: 1.8rem;
+    text-shadow: 0 0 5px rgba(0,0,0,0.2);
+  }
+
+  #offerModal a.btn-contact {
+    background-color: #fff;
+    color: #1ed760;
+    font-weight: 700;
+    padding: 0.75rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    box-shadow: 0 6px 15px rgba(30,215,96,0.6);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block;
+  }
+  #offerModal a.btn-contact:hover {
+    background-color: #1ed760;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(30,215,96,0.8);
+  }
+
+  @media (max-width: 480px) {
+    #offerModal h2 {
+      font-size: 2.2rem;
+    }
+    #offerModal .discount {
+      font-size: 3rem;
+    }
+    #offerModal p {
+      font-size: 1rem;
+    }
+  }
+  </style>
+</head>
+<body>
+
+  <!-- Background Animation -->
+  <div class="bg-animation"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      Ch<span style="color:#1ed760;">Rohail</span>
+    </div>
+    <nav id="nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+      <a href="Testimonials.html">Testimonials</a>
+      <a href="login and More.html" class="login-btn">Login and More</a>
+    </nav>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" data-aos="fade-up">
+    <h1>Hi, I'm <span style="color:#1ed760;">Chaudhry Rohail</span></h1>
+    <p class="tagline">Full-stack Developer | UI/UX Designer | AI Enthusiast</p>
+    <a href="projects.html" class="btn">View My Projects</a>
+  </section>
+
+  <!-- Intro Section -->
+  <section class="intro" data-aos="fade-up" data-aos-delay="100">
+    <div class="intro-card">
+      <h2>What I Do</h2>
+      <p>
+        I craft blazing-fast, modern websites and intuitive user experiences.
+        From clean frontends to powerful backends, I bring your ideas to life with code and creativity.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer data-aos="fade-up" data-aos-delay="300" style="text-align:center; padding: 20px; background: #111; color: #fff;">
+    <p>© 2024–2025 <a href="http://chrohail.com/" style="color: #00aced;">chrohail</a>. All Rights Reserved.</p>
+    <p><a href="mailto:rohailch2023@outlook.com" style="color: #fff; text-decoration: underline;">contact@chrohail.dev</a></p>
+    
+    <div class="social-icons" style="margin-top: 10px;">
+      <a href="https://github.com/chrohail" target="_blank" title="GitHub" style="margin: 0 10px; color: #fff;">
+        <i class="fab fa-github fa-lg"></i>
+      </a>
+      <a href="https://linkedin.com/in/chrohail" target="_blank" title="LinkedIn" style="margin: 0 10px; color: #0077b5;">
+        <i class="fab fa-linkedin fa-lg"></i>
+      </a>
+      <a href="https://twitter.com/chrohail" target="_blank" title="Twitter" style="margin: 0 10px; color: #1da1f2;">
+        <i class="fab fa-twitter fa-lg"></i>
+      </a>
+      <a href="https://www.instagram.com/chrohail_804" target="_blank" title="Instagram" style="margin: 0 10px; color: #e1306c;">
+        <i class="fab fa-instagram fa-lg"></i>
+      </a>
+    </div>
+  </footer>
+
+
+
+    <!-- Chat Launcher -->
+<button id="chat-launcher" aria-label="Open Chat Assistant">
+  💬 We're here to help!
+</button>
+
+<!-- Chat Widget -->
+<div id="chat-widget" role="dialog" aria-label="Chrohail Chat">
+  <div id="chat-header">
+    🤖 Chrohail Assistant
+    <span id="close-chat" role="button">×</span>
+  </div>
+
+  <div id="chat-content">
+    <button class="chat-btn" onclick="askAI('i have a question')">I have a question</button>
+    <button class="chat-btn" onclick="askAI('help with login')">Help with login/signup</button>
+    <button class="chat-btn" onclick="askAI('file issue')">File help</button>
+    <button class="chat-btn" onclick="askAI('talk to an agent')">Talk to an agent</button>
+  </div>
+
+  <div id="chat-response">💡 I'm ready to assist you!</div>
+
+  <div id="chat-input-area">
+    <input
+      type="text"
+      id="chat-input"
+      placeholder="Type your message..."
+      onkeypress="handleKey(event)"
+      autocomplete="off"
+    />
+  </div>
+
+  <div id="chat-iframe-container">
+    <iframe
+      id="chat-iframe"
+      title="Live Agent Chat"
+      src=""
+      allow="microphone; autoplay"
+      sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+    ></iframe>
+  </div>
+
+  <div id="chat-footer">© 2025 Chrohail AI Assistant. All rights reserved.</div>
+</div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    function toggleMenu() {
+      document.getElementById('nav').classList.toggle('show');
+    }
+
+
+
+        (function() {
+    const modal = document.getElementById('offerModal');
+    const closeBtn = modal.querySelector('.close-btn');
+
+    // Show the modal after 3 seconds
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        modal.style.display = 'block';
+        // Optional: prevent body scroll while modal is open
+        document.body.style.overflow = 'hidden';
+      }, );
+    });
+
+    // Close function
+    function closeModal() {
+      modal.style.display = 'none';
+      document.body.style.overflow = ''; // restore scroll
+    }
+
+    // Close on click X
+    closeBtn.addEventListener('click', closeModal);
+
+    // Close on pressing Enter or Space when focused on closeBtn (keyboard accessibility)
+    closeBtn.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        closeModal();
+      }
+    });
+
+    // Optional: Close if user clicks outside modal content
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+  })();
+  </script>
+<!--Start of Tawk.to Script-->
+  <link rel="stylesheet" href="chat.css"/>
+  <script src="chat.js"></script>
+</body>
+</html>
